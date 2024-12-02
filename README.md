@@ -1,45 +1,58 @@
-# Project: Implementation of Hashing Techniques and Advanced Data Structures
+# CS321 - Algorithms Analysis and Design  
+### Assignment #2: Hashing, Red-Black Trees, and Skip Lists  
 
-This project focuses on developing a strong understanding of hashing techniques, collision resolution methods, and advanced data structures like Red-Black Trees and Skip Lists. These implementations will be applied to solve practical and dynamic problems.
-
----
-
-## **Project Description**
-
-### **Part 1: Hashing Techniques and Collision Resolution**
-Develop C++ implementations for various hashing techniques and methods to resolve collisions efficiently:
-
-#### **Hashing Techniques**:
-1. **Division Method**  
-2. **Multiplication Method**  
-3. **Mid-Square Method**  
-4. **Folding Method**
-
-#### **Collision Resolution Methods**:
-1. **Chaining Method**  
-2. **Open Addressing Method**  
-3. **Double Hashing**
+This repository contains the implementation of various hashing techniques, collision resolution methods, and data structures such as Red-Black Trees and Skip Lists. Additionally, the assignment includes solving practical problems using these implementations.
 
 ---
 
-### **Part 2: Red-Black Tree**
-Implement a Red-Black Tree in C++ to support:
-1. **Insertion**: Add nodes while maintaining tree balance and color properties.  
-2. **Deletion**: Remove nodes with restructuring to preserve Red-Black Tree properties.
+## Task 1: Hashing and Collision Resolution Techniques  
 
-This ensures the tree operates efficiently and adheres to the rules of Red-Black Trees.
+Implement the following functions for each of the specified hashing and collision resolution techniques:
+
+### 1. Hashing Techniques  
+- **Division Method**  
+- **Multiplication Method**  
+- **Mid Square Method**  
+- **Folding Method**  
+
+### 2. Collision Resolution Techniques  
+- **Chaining Method**  
+- **Open Addressing Method**  
+- **Double Hashing**  
 
 ---
 
-### **Part 3: Skip List Implementation**
-#### **Part A: Core Implementation**
-Design a Skip List data structure in C++ to support:
-1. **Insertion**: Insert elements while maintaining probabilistic balancing.  
-2. **Deletion**: Remove elements efficiently.  
-3. **Search**: Quickly locate elements.
+## Task 2: Red-Black Tree  
 
-#### **Part B: Real-Life Application**
-Use the Skip List implementation to manage dynamic player scores in a multiplayer game. The implementation should include:
-1. **Dynamic Score Updates**: Handle frequent changes in player scores efficiently.  
-2. **Leaderboard Retrieval**: Provide quick access to the top N players.  
-3. **Player Management**: Allow players to join and leave the game dynamically, and access their scores anytime.
+Implement the insertion and deletion operations of a Red-Black Tree using C++. The implementation should maintain the tree's properties according to Red-Black Tree rules.
+
+### Functionalities  
+1. Insert nodes while ensuring tree balance and color properties are maintained.  
+2. Delete nodes with appropriate restructuring to uphold Red-Black Tree properties.  
+
+---
+
+## Task 3: Skip List  
+
+### a. Skip List Implementation  
+Implement a Skip List data structure in C++ that supports the following functionalities:  
+1. Insertion of elements while maintaining probabilistic balancing criteria.  
+2. Deletion of elements.  
+3. Searching for elements efficiently.  
+
+### b. Skip List Problem: Multiplayer Game Score Management  
+Use the Skip List implementation to solve the following problem:  
+
+#### Problem Description  
+In a multiplayer game, players’ scores need to be tracked dynamically. Players can join and leave the game at any time, and their scores can change frequently. Use the Skip List to manage scores efficiently and implement the following functionalities:  
+
+1. **Dynamic Score Updates**  
+   - Update player scores dynamically based on performance.  
+
+2. **Leaderboard Retrieval**  
+   - Retrieve the top N players efficiently upon request.  
+
+3. **Player Management**  
+   - Add players when they join the game.  
+   - Remove players when they leave.  
+   - Allow players to view their current score at any time.  
