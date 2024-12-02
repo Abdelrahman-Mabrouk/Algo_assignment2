@@ -43,22 +43,3 @@ Use the Skip List implementation to manage dynamic player scores in a multiplaye
 1. **Dynamic Score Updates**: Handle frequent changes in player scores efficiently.  
 2. **Leaderboard Retrieval**: Provide quick access to the top N players.  
 3. **Player Management**: Allow players to join and leave the game dynamically, and access their scores anytime.
-
----
-
-## **Objectives**
-- Gain hands-on experience with hashing techniques and collision resolution.
-- Understand and implement Red-Black Trees and their operations.
-- Build an efficient Skip List and apply it to a practical scenario.
-
----
-
-## **Deliverables**
-- Well-documented C++ code for each part of the project.
-- Explanations for the techniques and data structures used.
-- A demonstration of the dynamic problem-solving capabilities of the Skip List.
-
----
-
-### **Contact**
-For any inquiries or further clarifications, feel free to reach out!
