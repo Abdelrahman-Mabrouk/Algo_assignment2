@@ -1,6 +1,4 @@
-// Implementing Red-Black Tree in C++
-
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 struct Node
@@ -18,39 +16,6 @@ class RedBlackTree
         node->left = nullptr;
         node->right = nullptr;
         node->color = 0;
-    }
-
-    // Preorder
-    void preOrderHelper(Node *node)
-    {
-        if (node != TNULL)
-        {
-            cout << node->data << " ";
-            preOrderHelper(node->left);
-            preOrderHelper(node->right);
-        }
-    }
-
-    // Inorder
-    void inOrderHelper(Node *node)
-    {
-        if (node != TNULL)
-        {
-            inOrderHelper(node->left);
-            cout << node->data << " ";
-            inOrderHelper(node->right);
-        }
-    }
-
-    // Post order
-    void postOrderHelper(Node *node)
-    {
-        if (node != TNULL)
-        {
-            postOrderHelper(node->left);
-            postOrderHelper(node->right);
-            cout << node->data << " ";
-        }
     }
 
     void deleteFix(Node *x)
@@ -131,44 +96,27 @@ class RedBlackTree
     void rbTransplant(Node *u, Node *v)
     {
         if (u->parent == nullptr)
-        {
             root = v;
-        }
         else if (u == u->parent->left)
-        {
             u->parent->left = v;
-        }
         else
-        {
             u->parent->right = v;
-        }
         v->parent = u->parent;
     }
 
     void deleteNodeHelper(Node *node, int key)
     {
-        Node *z = TNULL;
-        Node *x, *y;
+        Node *x, *y, *z = TNULL;
         while (node != TNULL)
         {
             if (node->data == key)
-            {
                 z = node;
-            }
-
-            if (node->data <= key)
-            {
-                node = node->right;
-            }
-            else
-            {
-                node = node->left;
-            }
+            node = (node->data <= key) ? node->right : node->left;
         }
 
         if (z == TNULL)
         {
-            cout << "Key not found in the tree" << endl;
+            cout << "Key not found in the tree\n";
             return;
         }
 
@@ -303,9 +251,6 @@ public:
         root = TNULL;
     }
 
-    void preorder() { preOrderHelper(this->root); }
-    void inorder() { inOrderHelper(this->root); }
-    void postorder() { postOrderHelper(this->root); }
     Node *minimum(Node *node)
     {
         while (node->left != TNULL)
