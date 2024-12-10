@@ -144,7 +144,7 @@ public:
             cout << endl;
         }
     }
-    vector<T> printItem(int n){
+    vector<T> getItem(int n){
         Node<T>* current = header->next[0];
         vector<T> result ;
         while (current != nullptr ) {
