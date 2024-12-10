@@ -72,7 +72,7 @@ public:
 
 
     void printLeaderboard(int n) {
-        vector<Player> result = playerScores.printItem();
+        vector<Player> result = playerScores.getItem();
         if (n>result.size())n=result.size();
         for (int i = 0; n!=0 ; ++i) {
             cout<<"Rank"<<i+1<<" : "<<result[result.size()-1-i].name<<endl;
