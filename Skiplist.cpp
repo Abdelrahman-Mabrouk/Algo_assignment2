@@ -2,6 +2,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <random>
 
 using namespace std;
 
@@ -24,7 +25,6 @@ private:
     int maxLevel;
     Node<T>* header;
     int currentLevel;
-
 public:
     SkipList(int maxLvl = 16) {
         maxLevel = maxLvl;
@@ -33,19 +33,16 @@ public:
     }
 
     int randomLevel() {
-        int level = 0;
-        while ((rand() % 2) == 0 && level < maxLevel) {
-            level++;
-        }
-        return level;
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dis(0, maxLevel);
+        return dis(gen);
     }
-
 
     void insert(T value) {
         vector<Node<T>*> update(maxLevel + 1, nullptr);
         Node<T>* current = header;
 
-        // Traverse all levels to find the position for insertion
         for (int i = currentLevel; i >= 0; i--) {
             while (current->next[i] != nullptr && current->next[i]->value < value) {
                 current = current->next[i];
@@ -55,12 +52,11 @@ public:
 
         current = current->next[0];
 
-        // If the element already exists, we don't insert
         if (current != nullptr && current->value == value) {
+            cout << "This item is Already exists, we don't insert\n";
             return;
         }
 
-        // Create a new node with a random level
         int newLevel = randomLevel();
         if (newLevel > currentLevel) {
             for (int i = currentLevel + 1; i <= newLevel; i++) {
@@ -69,17 +65,14 @@ public:
             currentLevel = newLevel;
         }
 
-        // Create the new node
         Node<T>* newNode = new Node<T>(value, newLevel);
 
-        // Update the pointers of the affected levels
         for (int i = 0; i <= newLevel; i++) {
             newNode->next[i] = update[i]->next[i];
             update[i]->next[i] = newNode;
         }
     }
 
-    // Deletion of an element from the skip list
     void remove(T value) {
         vector<Node<T>*> update(maxLevel + 1, nullptr);
         Node<T>* current = header;
@@ -96,6 +89,7 @@ public:
 
         // If the element doesn't exist, nothing to delete
         if (current == nullptr || current->value != value) {
+            cout<<"The element doesn't exist, nothing to delete";
             return;
         }
 
@@ -115,18 +109,27 @@ public:
         delete current;
     }
 
-    // Searching for an element in the skip list
-    bool search(T value) {
+    Node<T>* search(T value) {
         Node<T>* current = header;
         for (int i = currentLevel; i >= 0; i--) {
-            while (current->next[i] != nullptr && current->next[i]->value < value) {
+            while (current->next[i] != nullptr && current->next[i]->value <= value) {
                 current = current->next[i];
+                if(current->value == value)break;
             }
+            if(current->value == value)break;
         }
 
-        current = current->next[0];
+        // إذا كانت القيمة موجودة، نرجع النود، وإذا لم تكن موجودة نرجع nullptr
+        if (current != nullptr && current->value == value) {
+            return current;  // إذا تم العثور على النود
+        } else {
+            return nullptr;  // إذا لم يتم العثور على النود
+        }
+    }
 
-        return current != nullptr && current->value == value;
+    void update(T oldValue, T newValue) {
+        remove(oldValue);
+        insert(newValue);
     }
 
     void printList() {
@@ -141,32 +144,31 @@ public:
             cout << endl;
         }
     }
+
+
 };
 
 
 int main() {
-    srand(time(0));
-
     SkipList<int> skipList(4);
 
     cout << "Inserting values: 5, 10, 15, 20, 25" << endl;
     skipList.insert(5);
     skipList.insert(10);
-    skipList.insert(15);
     skipList.insert(20);
-    skipList.insert(25);
+    skipList.insert(15);
 
     skipList.printList();
 
-    cout << "Searching for 15: " << (skipList.search(15) ? "Found" : "Not Found") << endl;
-    cout << "Searching for 30: " << (skipList.search(30) ? "Found" : "Not Found") << endl;
+    cout << "Searching for 15: " <<( (skipList.search(15) != nullptr) ? "Found\n" : "Not Found\n") ;
+    cout<<(skipList.search(5))<<endl;
+    cout << "Searching for 30: " << ( (skipList.search(15) != nullptr) ? "Found\n" : "Not Found\n")<< endl;
 
+
+    skipList.update(5,12);
+    skipList.printList();
     cout << "Deleting 15" << endl;
     skipList.remove(15);
-
-    skipList.printList();
-
-    cout << "Searching for 15 after deletion: " << (skipList.search(15) ? "Found" : "Not Found") << endl;
 
     return 0;
 }
