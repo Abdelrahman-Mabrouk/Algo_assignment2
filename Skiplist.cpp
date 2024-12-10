@@ -144,7 +144,15 @@ public:
             cout << endl;
         }
     }
-
+    void printItem(int n){
+        Node<T>* current = header->next[0];
+        string result ="" ;
+        for (int i = 0; i < n; ++i) {
+            result = to_string(current->value) +" " + result;
+            current = current->next[0];
+        }
+        cout<<result<<endl;
+    }
 
 };
 
