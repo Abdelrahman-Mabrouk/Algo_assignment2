@@ -144,14 +144,14 @@ public:
             cout << endl;
         }
     }
-    void printItem(int n){
+    vector<T> printItem(int n){
         Node<T>* current = header->next[0];
-        string result ="" ;
-        for (int i = 0; i < n; ++i) {
-            result = to_string(current->value) +" " + result;
+        vector<T> result ;
+        while (current != nullptr ) {
+            result.push_back(current->value);
             current = current->next[0];
         }
-        cout<<result<<endl;
+        return result;
     }
 
 };
