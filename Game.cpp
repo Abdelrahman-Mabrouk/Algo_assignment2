@@ -1,93 +1,104 @@
-#include <iostream>
-#include <vector>
-#include <cstdlib>
-#include <ctime>
-#include <algorithm>
+#include <bits/stdc++.h>
 #include "Skiplist.cpp"
 
 using namespace std;
 
-struct Player {
+struct Player
+{
     int id;
     string name;
     int score;
     Player() {}
-    Player(int id , string name , int score): id(id),name(name),score(score){}
+    Player(int id, string name, int score) : id(id), name(name), score(score) {}
 
-    bool operator<(const Player &other) const {
+    bool operator<(const Player &other) const
+    {
         return score < other.score;
     }
-    bool operator>(const Player &other) const {
+    bool operator>(const Player &other) const
+    {
         return score > other.score;
     }
-    bool operator==(const Player &other) const {
-        return   id == other.id;
+    bool operator==(const Player &other) const
+    {
+        return id == other.id;
     }
-    bool operator<=(const Player &other) const {
+    bool operator<=(const Player &other) const
+    {
         return score <= other.score || id == other.id;
     }
-    bool operator>=(const Player &other) const {
+    bool operator>=(const Player &other) const
+    {
         return score >= other.score || id == other.id;
     }
-    bool operator != (const Player &other) const {
-        return   id != other.id;
+    bool operator!=(const Player &other) const
+    {
+        return id != other.id;
     }
 };
 
-
-class Game {
+class Game
+{
 private:
     SkipList<Player> playerScores;
 
 public:
     Game() : playerScores(16) {}
 
-    void addPlayer(Player player) {
-            playerScores.insert(player);
-            cout << "Player " << player.name << " added with score " << player.score << endl;
+    void addPlayer(Player player)
+    {
+        playerScores.insert(player);
+        cout << "Player " << player.name << " added with score " << player.score << endl;
     }
 
-    void removePlayer(Player player) {
-            playerScores.remove(player);
-            cout << "Player " << player.name << " removed from the game." << endl;
-
+    void removePlayer(Player player)
+    {
+        playerScores.remove(player);
+        cout << "Player " << player.name << " removed from the game." << endl;
     }
 
     // تحديث نقاط لاعب
-    void updateScore(Player oldScore, Player newScore) {
-        playerScores.update(oldScore,newScore);
-        cout<<"Score is Updated Successfully\n";
+    void updateScore(Player oldScore, Player newScore)
+    {
+        playerScores.update(oldScore, newScore);
+        cout << "Score is Updated Successfully\n";
     }
 
     // استرجاع نقاط لاعب
-    int getPlayerScore(Player player) {
+    int getPlayerScore(Player player)
+    {
 
-        if (playerScores.search(player) != nullptr) {
+        if (playerScores.search(player) != nullptr)
+        {
             return playerScores.search(player)->value.score;
-        } else {
+        }
+        else
+        {
             cout << "Player not Found.";
-            return  -1;
+            return -1;
         }
     }
 
-
-    void printLeaderboard(int n) {
+    void printLeaderboard(int n)
+    {
         vector<Player> result = playerScores.getItem();
-        if (n>result.size())n=result.size();
-        for (int i = 0; n!=0 ; ++i) {
-            cout<<"Rank"<<i+1<<" : "<<result[result.size()-1-i].name<<endl;
+        if (n > result.size())
+            n = result.size();
+        for (int i = 0; n != 0; ++i)
+        {
+            cout << "Rank" << i + 1 << " : " << result[result.size() - 1 - i].name << endl;
             n--;
         }
     }
 };
 
-int main() {
+int main()
+{
 
     Game game;
-    Player player1 = Player(1,"Mabrouk",100);
-    Player player2 = Player(2,"Abo7meda",270);
-    Player player3 = Player(3,"Abdelrahman",980);
-
+    Player player1 = Player(1, "Mabrouk", 100);
+    Player player2 = Player(2, "Abo7meda", 270);
+    Player player3 = Player(3, "Abdelrahman", 980);
 
     game.addPlayer(player1);
     game.addPlayer(player2);
@@ -95,7 +106,7 @@ int main() {
 
     game.printLeaderboard(3);
 
-    game.updateScore(player2, Player(2,"Abo7meda",10));
+    game.updateScore(player2, Player(2, "Abo7meda", 10));
 
     cout << "Player2 Score: " << game.getPlayerScore(player2) << endl;
 
