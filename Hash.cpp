@@ -45,17 +45,31 @@ void chainingMethod(vector<list<int>> &hashTable, vector <int> key, int tableSiz
 }
 
 // Open Addressing Method (Linear Probing)
-void openAddressingMethod(vector<int> &hashTable, vector <int> key, int tableSize) {
+void linearProbingMethod(vector<int> &hashTable, vector <int> key, int tableSize) {
     for (int k: key) {
         int index = divisionMethod(k, tableSize);
-        int originalIndex = index;
-        while (hashTable[index] != -1) {
-            index = (index + 1) % tableSize;
-            if (index == originalIndex) {
+        int i = 0;
+        while (hashTable[(index + i) % tableSize]  != -1) {
+            i++;
+            if ((index + i) % tableSize == index) {
                 throw runtime_error("Hash table is full");
             }
         }
-        hashTable[index] = k;
+        (i==0)?hashTable[index] = k : hashTable[(index + i) % tableSize]=k;
+    }
+}
+// Open Addressing Method (Quadratic Probing)
+void quadraticProbingMethod(vector<int> &hashTable, vector <int> key, int tableSize) {
+    for (int k: key) {
+        int index = divisionMethod(k, tableSize);
+        int i = 0;
+        while (hashTable[(index + i*i)  % tableSize] != -1) {
+            i++;
+            if ((index + i) % tableSize == index) {
+                throw runtime_error("Hash table is full");
+            }
+        }
+        (i==0)?hashTable[index] = k : hashTable[(index + i*i ) % tableSize]=k;
     }
 }
 
@@ -65,17 +79,16 @@ void doubleHashing(vector<int> &hashTable, vector <int> key, int tableSize) {
         unordered_set<int>s;
         int index1 = divisionMethod(k, tableSize);
         int index2 = multiplicationMethod(k, tableSize);
-        int index = index1;
         int i = 0;
-        while (hashTable[index] != -1) {
-            index = (index + i * index2) % tableSize;
+        while (hashTable[(index1 + i * index2) % tableSize] != -1) {
+            ++i;
             if(s.size()==tableSize){
                 throw runtime_error("Hash table is full");
             }
-            if(index>=0 && index<tableSize)s.insert(index);
-            ++i;
+            if(index1>=0 && index1<tableSize)s.insert(index1);
         }
-        hashTable[index] = k;
+        (i==0)?hashTable[index1] = k : hashTable[(index1 + i * index2) % tableSize]=k;
+
     }
 }
 int main() {
@@ -99,13 +112,22 @@ int main() {
         cout << endl;
     }
 
-    //-------------------------Example for Open Addressing Method----------------------------------------------
-    vector<int> hashTableOpenAddressing(tableSize, -1);
-    openAddressingMethod(hashTableOpenAddressing, keys, tableSize);
-    cout << "-------------------Open Addressing Method-----------------------\n";
+    //-------------------------Example for Open Linear Probing Method----------------------------------------------
+    vector<int> hashTablelinearProbing(tableSize, -1);
+    linearProbingMethod(hashTablelinearProbing, keys, tableSize);
+    cout << "-------------------Open Linear Probing Method-----------------------\n";
     for (int i = 0; i < tableSize; ++i) {
-        cout << "Index " << i << ": "<<hashTableOpenAddressing[i] << endl;
+        cout << "Index " << i << ": "<<hashTablelinearProbing[i] << endl;
     }
+
+    //-------------------------Example for Open Quadratic Probing Method----------------------------------------------
+    vector<int> hashTableQuadraticProbing(tableSize, -1);
+    quadraticProbingMethod(hashTableQuadraticProbing, keys, tableSize);
+    cout << "-------------------Open Quadratic Probing Method----------------------\n";
+    for (int i = 0; i < tableSize; ++i) {
+        cout << "Index " << i << ": "<<hashTableQuadraticProbing[i] << endl;
+    }
+
 
     //------------------------Example for Double Hashing---------------------------------------------------------
     vector<int> hashTableDoubleHashing(tableSize, -1);
